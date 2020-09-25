@@ -1,4 +1,4 @@
-package com.example.redispoc21.x;
+package com.example.redispoc;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

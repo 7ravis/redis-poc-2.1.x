@@ -1,4 +1,4 @@
-package com.example.redispoc21.x;
+package com.example.redispoc;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
