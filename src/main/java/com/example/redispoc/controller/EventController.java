@@ -23,17 +23,31 @@ public class EventController {
 	@Value("${redispoc.redis.keys.pendingevents}")
 	private String pendingEventsKey;
 
+	@Value("${redispoc.redis.keys.processingevents}")
+	private String processingEventsKey;
+
 	@Resource(name = "redisTemplate")
 	private ListOperations<String, Object> listOps;
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.ACCEPTED)
-	EventDto lpush(@RequestBody CreateEventDto request) {
+	EventDto lpushToPendingEventsList(@RequestBody CreateEventDto request) {
 		UUID id = UUID.randomUUID();
 		EventDto response = new EventDto();
 		response.setName(request.getName());
 		response.setId(id);
 		listOps.leftPush(pendingEventsKey, response);
+		return response;
+	}
+
+	@PostMapping("/processing")
+	@ResponseStatus(HttpStatus.ACCEPTED)
+	EventDto lpushToProcessingEventsList(@RequestBody CreateEventDto request) {
+		UUID id = UUID.randomUUID();
+		EventDto response = new EventDto();
+		response.setName(request.getName());
+		response.setId(id);
+		listOps.leftPush(processingEventsKey, response);
 		return response;
 	}
 
