@@ -8,6 +8,8 @@ import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactor
 import org.springframework.data.redis.core.RedisTemplate;
 
 import com.example.redispoc.dto.EventDto;
+import com.example.redispoc.service.EventProcessor;
+import com.example.redispoc.service.EventProcessor_noOp;
 
 @Configuration
 public class AppConfig {
@@ -17,6 +19,11 @@ public class AppConfig {
 
 	@Value("${redispoc.redis.keys.processingevents}")
 	private String processingEventsKey;
+
+	@Bean
+	public EventProcessor eventProcessor() {
+		return new EventProcessor_noOp();
+	}
 
 	@Bean
 	public LettuceConnectionFactory redisConnectionFactory() {
